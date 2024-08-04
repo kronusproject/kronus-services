@@ -1,0 +1,36 @@
+/dts-v1/;
+/plugin/;
+
+&{/chosen} {
+	overlays {
+		kronus-can = "1";
+	};
+};
+
+&{/} {
+	rpi_can0_osc: rpi-can0-osc {
+		compatible = "fixed-clock";
+		#clock-cells = <0>;
+		clock-frequency  = <16000000>;
+	};
+};
+
+&gpio2 {
+	rpi-can0-int {
+		gpio-hog;
+		gpios = <25 1>;
+		input;
+		line-name = "rpi-can0-int";
+	};
+};
+
+&spi1 {
+	rpi_can0: can@0 {
+		compatible = "microchip,mcp251xfd";
+		reg = <0>;
+		clocks = <&rpi_can0_osc>;
+		spi-max-frequency = <20000000>;
+		interrupts-extended = <&gpio2 25 8>; /* IRQ_TYPE_LEVEL_LOW */
+		status = "okay";
+	};
+};

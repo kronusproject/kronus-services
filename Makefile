@@ -2,7 +2,7 @@ BUILD_DIR = build
 
 vpath %.dtso dts
 
-all: $(BUILD_DIR)/kronus-fabric.dtbo
+all: $(BUILD_DIR)/kronus-fabric.dtbo $(BUILD_DIR)/kronus-can.dtbo
 
 $(BUILD_DIR):
 	mkdir -p $@
